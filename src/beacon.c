@@ -1,7 +1,7 @@
-/** @file lighthouse.c
+/** @file beacon.c
  *  @author Bram Wasti <bwasti@cmu.edu>
  *
- *  @brief This file contains the main logic of lighthouse, a simple
+ *  @brief This file contains the main logic of beacon, a simple
  *         scriptable popup dialogue. See the README for information on usage.
  *
  *  @section LICENSE
@@ -65,7 +65,7 @@ extern char *strdup (const char *__s);
 #define CURSOR_PADDING    4
 
 /* @brief Name of the file to search for. Directory appended at runtime. */
-#define CONFIG_FILE       "/lighthouse/lighthouserc"
+#define CONFIG_FILE       "/beacon/beaconrc"
 
 
 /* @brief Check the xcb cookie and prints an error if it has one.
@@ -755,7 +755,7 @@ int main(int argc, char **argv) {
   xcb_intern_atom_cookie_t atom_cookie = xcb_intern_atom(connection, 0, strlen("_NET_WM_WINDOW_TYPE"), "_NET_WM_WINDOW_TYPE");
   xcb_intern_atom_reply_t *atom_reply = xcb_intern_atom_reply(connection, atom_cookie, NULL);
   if (!atom_reply) {
-    fprintf(stderr, "Unable to set window type. You will need to manually set your window manager to run lighthouse as you'd like.\n");
+    fprintf(stderr, "Unable to set window type. You will need to manually set your window manager to run beacon as you'd like.\n");
   } else {
     window_type_atom = atom_reply->atom;
     free(atom_reply);
@@ -771,7 +771,7 @@ int main(int argc, char **argv) {
       free(atom_reply);
       xcb_change_property_checked(connection, XCB_PROP_MODE_REPLACE, window, window_type_atom, XCB_ATOM_ATOM, 32, 1, &window_type_dock_atom);
     } else {
-      fprintf(stderr, "Unable to set window type. You will need to manually set your window manager to run lighthouse as you'd like.\n");
+      fprintf(stderr, "Unable to set window type. You will need to manually set your window manager to run beacon as you'd like.\n");
     }
   }
 
@@ -816,7 +816,7 @@ int main(int argc, char **argv) {
   }
 
   /* Set window properties. */
-  char *title = "lighthouse";
+  char *title = "beacon";
   xcb_change_property(connection, XCB_PROP_MODE_REPLACE, window,
     XCB_ATOM_WM_NAME, XCB_ATOM_STRING, 8, strlen(title), title);
   xcb_change_property(connection, XCB_PROP_MODE_REPLACE, window,

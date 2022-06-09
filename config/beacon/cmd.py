@@ -1,4 +1,4 @@
-#!/usr/bin/python2.7
+#!/usr/bin/python
 
 import sys
 import random
@@ -15,7 +15,7 @@ MAX_OUTPUT = 100 * 1024
 resultStr = Array(c_char, MAX_OUTPUT);
 
 def clear_output():
-  resultStr.value = json.dumps([])
+  resultStr.value = json.dumps([]).encode("gbk")
 
 def sanitize_output(string):
   string = string.replace("{", "\{")
@@ -42,7 +42,7 @@ def prepend_output(title, action):
   action = sanitize_output(action)
   results = json.loads(resultStr.value)
   results = [create_result(title, action)] + results
-  resultStr.value = json.dumps(results)
+  resultStr.value = json.dumps(results).encode("gbk")
 
 def update_output():
   results = json.loads(resultStr.value)

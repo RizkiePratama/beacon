@@ -1,8 +1,9 @@
-# lighthouse - A simple flexible popup dialog to run on X.
+# beacon - A simple flexible popup dialog to run on X.
+# Based on Lighthouse Project that are no longer maintained.
 # See LICENSE file for copyright and license details.
 
 PREFIX = /usr/local
-SHAREPREFIX = ${PREFIX}/share/lighthouse
+SHAREPREFIX = ${PREFIX}/share/beacon
 DOLLAR = $$
 
 CC=gcc
@@ -40,34 +41,34 @@ else
 endif
 
 options:
-	@echo lighthouse build options:
+	@echo beacon build options:
 	@echo "CFLAGS   = ${CFLAGS}"
 	@echo "LDFLAGS  = ${LDFLAGS}"
 	@echo "CC       = ${CC}"
 
-all: lighthouse
+all: beacon
 
 install: all .FORCE
 	@echo installing executables to ${DESTDIR}${PREFIX}/bin
 	@mkdir -p ${DESTDIR}${PREFIX}/bin
-	@cp -f lighthouse ${DESTDIR}${PREFIX}/bin
-	@chmod +x ${DESTDIR}${PREFIX}/bin/lighthouse
+	@cp -f beacon ${DESTDIR}${PREFIX}/bin
+	@chmod +x ${DESTDIR}${PREFIX}/bin/beacon
 	@echo installing configurations to ${DESTDIR}${SHAREPREFIX}/.config
 	@mkdir -p ${DESTDIR}${SHAREPREFIX}/.config
-	@cp -r config/lighthouse ${DESTDIR}${SHAREPREFIX}/.config
-	@chmod +x ${DESTDIR}${SHAREPREFIX}/.config/lighthouse/cmd*
-	@echo installing lighthouse-install script
-	@echo "#!/bin/sh" > ${DESTDIR}${PREFIX}/bin/lighthouse-install
-	@echo "cp -r -n ${DESTDIR}${SHAREPREFIX}/.config/lighthouse \$(DOLLAR)HOME/.config" >> ${DESTDIR}${PREFIX}/bin/lighthouse-install
-	@echo "chmod -R +w \$(DOLLAR)HOME/.config/lighthouse" >> ${DESTDIR}${PREFIX}/bin/lighthouse-install
-	@chmod +x ${DESTDIR}${PREFIX}/bin/lighthouse-install
+	@cp -r config/beacon ${DESTDIR}${SHAREPREFIX}/.config
+	@chmod +x ${DESTDIR}${SHAREPREFIX}/.config/beacon/cmd*
+	@echo installing beacon-install script
+	@echo "#!/bin/sh" > ${DESTDIR}${PREFIX}/bin/beacon-install
+	@echo "cp -r -n ${DESTDIR}${SHAREPREFIX}/.config/beacon \$(DOLLAR)HOME/.config" >> ${DESTDIR}${PREFIX}/bin/beacon-install
+	@echo "chmod -R +w \$(DOLLAR)HOME/.config/beacon" >> ${DESTDIR}${PREFIX}/bin/beacon-install
+	@chmod +x ${DESTDIR}${PREFIX}/bin/beacon-install
 
 debug: CC+=$(CFLAGS_DEBUG)
-debug: lighthouse .FORCE
+debug: beacon .FORCE
 
 .FORCE:
 
-lighthouse: $(OBJS)
+beacon: $(OBJS)
 	$(CC) $(CFLAGS) $^ -o $@ $(LDFLAGS)
 
 $(OBJS): | $(OBJDIR)
@@ -78,4 +79,4 @@ $(OBJDIR)/%.o: $(SRCDIR)/%.c $(wildcard $(INCDIR)/*.h) Makefile
 	$(CC) $(CFLAGS) $< -c -o $@
 
 clean:
-	@rm -rf $(OBJDIR) lighthouse
+	@rm -rf $(OBJDIR) beacon
