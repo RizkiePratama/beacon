@@ -108,7 +108,7 @@ struct settings_s {
   uint32_t line_gap; /* Gap between the line drawed by %L */
 };
 
-struct global_s global;
-struct settings_s settings;
+extern struct global_s global;
+extern struct settings_s settings;
 
 #endif /* _GLOBALS_H */

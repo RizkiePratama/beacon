@@ -6,5 +6,5 @@
 
 #include "globals.h"
 
-extern struct global_s global;
-extern struct settings_s settings;
+struct global_s global;
+struct settings_s settings;
