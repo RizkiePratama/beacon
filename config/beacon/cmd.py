@@ -35,7 +35,7 @@ def append_output(title, action):
     results.append(create_result(title, action))
   else: # ignore the bottom two default options
     results.insert(-2, create_result(title, action))
-  resultStr.value = json.dumps(results)
+  resultStr.value = json.dumps(results).encode("gbk")
 
 def prepend_output(title, action):
   title = sanitize_output(title)
@@ -46,7 +46,7 @@ def prepend_output(title, action):
 
 def update_output():
   results = json.loads(resultStr.value)
-  print "".join(results)
+  print("".join(results))
   sys.stdout.flush()
   
 find_thr = None
